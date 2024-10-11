@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Calculator with Operator Display</title>
+    <style>
+        body {
+            background-color: #282c34;
+            font-family: 'Helvetica Neue', sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #1c1f26;
+            border-radius: 15px;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .display {
+            background-color: #000;
+            color: #76e482;
+            font-size: 2.5em;
+            text-align: right;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .operator-display {
+            font-size: 1.5em;
+            color: #ff6464;
+            margin-right: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            background-color: #3b4049;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #565b66;
+        }
+
+        .button-operator {
+            background-color: #ff6464;
+        }
+
+        .button-clear {
+            background-color: #ff3b3b;
+        }
+
+        .button-equals {
+            background-color: #4caf50;
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="display">
+        <span id="operator-display" class="operator-display"></span>
+        <span id="display">0</span>
+    </div>
+    <div class="buttons">
+        <button class="button-clear" onclick="clearDisplay()">AC</button>
+        <button onclick="inputOperator('^')">^</button>
+        <button onclick="inputOperator('%')">%</button>
+        <button class="button-operator" onclick="inputOperator('/')">÷</button>
+
+        <button onclick="inputNumber(7)">7</button>
+        <button onclick="inputNumber(8)">8</button>
+        <button onclick="inputNumber(9)">9</button>
+        <button class="button-operator" onclick="inputOperator('*')">×</button>
+
+        <button onclick="inputNumber(4)">4</button>
+        <button onclick="inputNumber(5)">5</button>
+        <button onclick="inputNumber(6)">6</button>
+        <button class="button-operator" onclick="inputOperator('-')">−</button>
+
+        <button onclick="inputNumber(1)">1</button>
+        <button onclick="inputNumber(2)">2</button>
+        <button onclick="inputNumber(3)">3</button>
+        <button class="button-operator" onclick="inputOperator('+')">+</button>
+
+        <button onclick="inputNumber(0)" style="grid-column: span 2;">0</button>
+        <button class="button-equals" onclick="calculateResult()">=</button>
+    </div>
+</div>
+
+<script>
+    let displayValue = '0';
+    let currentOperator = null;
+    let firstOperand = null;
+
+    function inputNumber(num) {
+        if (displayValue === '0') {
+            displayValue = String(num);
+        } else {
+            displayValue += String(num);
+        }
+        updateDisplay();
+    }
+
+    function inputOperator(operator) {
+        if (currentOperator === null) {
+            firstOperand = parseFloat(displayValue);
+        } else {
+            calculateResult();
+        }
+        currentOperator = operator;
+        displayValue = '0';
+        updateOperatorDisplay(operator); // Update the operator display
+    }
+
+    function calculateResult() {
+        let secondOperand = parseFloat(displayValue);
+        let result;
+
+        switch (currentOperator) {
+            case '+':
+                result = firstOperand + secondOperand;
+                break;
+            case '-':
+                result = firstOperand - secondOperand;
+                break;
+            case '*':
+                result = firstOperand * secondOperand;
+                break;
+            case '/':
+                result = firstOperand / secondOperand;
+                break;
+            case '%':
+                result = firstOperand % secondOperand;
+                break;
+            case '^':
+                result = Math.pow(firstOperand, secondOperand);
+                break;
+            default:
+                return;
+        }
+
+        displayValue = String(result);
+        currentOperator = null;
+        updateDisplay();
+        clearOperatorDisplay(); // Clear the operator display after calculation
+    }
+
+    function clearDisplay() {
+        displayValue = '0';
+        currentOperator = null;
+        firstOperand = null;
+        updateDisplay();
+        clearOperatorDisplay(); // Clear operator when clearing
+    }
+
+    function updateDisplay() {
+        const display = document.getElementById('display');
+        display.textContent = displayValue;
+    }
+
+    function updateOperatorDisplay(operator) {
+        const operatorDisplay = document.getElementById('operator-display');
+        operatorDisplay.textContent = operator;  // Show operator on screen
+    }
+
+    function clearOperatorDisplay() {
+        const operatorDisplay = document.getElementById('operator-display');
+        operatorDisplay.textContent = ''; // Clear operator display
+    }
+</script>
+
+</body>
+</html>

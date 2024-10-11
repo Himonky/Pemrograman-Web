@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjumlahan</title>
+    <style>
+        .container {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #ffffff;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-submit {
+            background-color: #22b027;
+            color: white;
+        }
+        .btn-reset {
+            background-color: #ff1100;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Penjumlahan</h2>
+    <label for="number1">Bilangan pertama</label>
+    <input type="number" id="number1" placeholder="1">
+
+    <label for="number2">Bilangan kedua</label>
+    <input type="number" id="number2" placeholder="2">
+
+    <button class="btn-submit" onclick="sumNumbers()">Jumlahkan</button>
+    <button class="btn-reset" onclick="resetForm()">Reset</button>
+
+    <div class="result">
+        Hasil: <span id="result">0</span>
+    </div>
+</div>
+
+<script>
+    function sumNumbers() {
+        const number1 = parseFloat(document.getElementById('number1').value);
+        const number2 = parseFloat(document.getElementById('number2').value);
+        const result = number1 + number2;
+
+        if (!isNaN(result)) {
+            document.getElementById('result').textContent = result;
+        } else {
+            document.getElementById('result').textContent = 'Error';
+        }
+    }
+
+    function resetForm() {
+        document.getElementById('number1').value = '';
+        document.getElementById('number2').value = '';
+        document.getElementById('result').textContent = '0';
+    }
+</script>
+
+</body>
+</html>

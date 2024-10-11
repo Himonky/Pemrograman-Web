@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran</title>
+    <style>
+        /* Optional CSS for styling */
+        body {
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #252525;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            text-align: center;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Form Pendaftaran</h2>
+    <label for="name">Nama</label>
+    <input type="text" id="name" placeholder="Masukkan Nama">
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Masukkan Email">
+
+    <label for="address">Alamat Lengkap</label>
+    <input type="text" id="address" placeholder="Masukkan Alamat Lengkap">
+
+    <button onclick="validateForm()">Daftar</button>
+</div>
+
+<script>
+    function validateForm() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+
+        // List of allowed domain extensions
+        const validDomains = [".com", ".id", ".net", ".org", ".edu", ".co"];
+
+        // Function to check if the email ends with a valid domain
+        function hasValidDomain(email) {
+            return validDomains.some(domain => email.endsWith(domain));
+        }
+
+        if (name === "" || email === "" || address === "") {
+            alert("Error, isi semua kolom!!");
+        } else if (!email.includes("@") || !hasValidDomain(email)) {
+            alert("Email harus mengandung '@' dan diakhiri dengan domain yang valid (.com,.id,dll)!");
+        } else {
+            alert("Form berhasil dikirim!");
+        }
+    }
+</script>
+
+</body>
+</html>
